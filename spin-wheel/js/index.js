@@ -6,16 +6,10 @@ window.onload = async () => {
   await loadFonts(props.map((i) => i.itemLabelFont));
 
   const wheel = new Wheel(document.querySelector(".wheel-wrapper"));
-  const dropdown = document.querySelector("select");
 
   const images = [];
 
   for (const p of props) {
-    // Initalise dropdown with the names of each example:
-    const opt = document.createElement("option");
-    opt.textContent = p.name;
-    dropdown.append(opt);
-
     // Convert image urls into actual images:
     images.push(initImage(p, "image"));
     images.push(initImage(p, "overlayImage"));
@@ -29,17 +23,12 @@ window.onload = async () => {
   // Show the wheel once everything has loaded
   document.querySelector(".wheel-wrapper").style.visibility = "visible";
 
-  // Handle dropdown change:
-  dropdown.onchange = () => {
-    wheel.init({
-      ...props[dropdown.selectedIndex],
-      rotation: wheel.rotation, // Preserve value.
-    });
-  };
+  wheel.init({
+    ...props[0],
+    rotation: wheel.rotation, // Preserve value.
+  });
 
-  // Select default:
-  dropdown.options[0].selected = "selected";
-  dropdown.onchange();
+  wheel.isInteractive = false;
 
   // Save object globally for easy debugging.
   window.wheel = wheel;
@@ -51,12 +40,12 @@ window.onload = async () => {
     // Listen for click event on spin button:
     if (e.target === btnSpin) {
       const { duration, winningItemRotaion } = calcSpinToValues();
-      wheel.spinTo(winningItemRotaion, duration);
+      wheel.spinToItem(3, duration, true, 2, 1);
     }
   });
 
   function calcSpinToValues() {
-    const duration = 3000;
+    const duration = 5000;
     const winningItemRotaion = getRandomInt(360, 360 * 1.75) + modifier;
     modifier += 360 * 1.75;
     return { duration, winningItemRotaion };
