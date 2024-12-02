@@ -40,9 +40,14 @@ window.onload = async () => {
     // Listen for click event on spin button:
     if (e.target === btnSpin) {
       const { duration, winningItemRotaion } = calcSpinToValues();
-      wheel.spinToItem(3, duration, true, 2, 1);
+      wheel.spinToItem(7, duration, true, 2, 1);
     }
   });
+
+  wheel.onRest = function (event) {
+    console.log(event);
+    showPopup(event);
+  };
 
   function calcSpinToValues() {
     const duration = 5000;
@@ -65,3 +70,35 @@ window.onload = async () => {
     return i;
   }
 };
+
+const modal = new tingle.modal({
+  footer: true,
+  stickyFooter: false,
+  closeMethods: ["overlay", "button", "escape"],
+  closeLabel: "Close",
+  cssClass: ["custom-class-1", "custom-class-2"],
+  onOpen: function () {},
+  onClose: function () {},
+  beforeClose: function () {
+    // here's goes some logic
+    // e.g. save content before closing the modal
+    return true; // close the modal
+  },
+});
+
+// set content
+
+function openModal() {
+  modal.open();
+}
+
+function closeModal() {
+  modal.close();
+}
+
+function showPopup(event) {
+  if (event.currentIndex === 7) {
+    modal.setContent(`Better Luck next time !`);
+  }
+  modal.open();
+}
