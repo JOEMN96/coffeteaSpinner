@@ -36,16 +36,20 @@ window.onload = async () => {
   const btnSpin = document.querySelector("button");
   let modifier = 0;
 
-  window.addEventListener("click", (e) => {
+  window.addEventListener("click", async (e) => {
     // Listen for click event on spin button:
+    try {
+      let res = await getSelecton();
+      let json = res.json();
+      console.log(json);
+    } catch (error) {}
     if (e.target === btnSpin) {
       const { duration, winningItemRotaion } = calcSpinToValues();
-      wheel.spinToItem(7, duration, true, 2, 1);
+      wheel.spinToItem(8, duration, true, 2, 1);
     }
   });
 
   wheel.onRest = function (event) {
-    console.log(event);
     showPopup(event);
   };
 
@@ -69,6 +73,13 @@ window.onload = async () => {
     obj[pName] = i;
     return i;
   }
+
+  async function getSelecton() {
+    const response = await fetch("/.netlify/functions/hello");
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
 };
 
 const modal = new tingle.modal({
@@ -80,9 +91,7 @@ const modal = new tingle.modal({
   onOpen: function () {},
   onClose: function () {},
   beforeClose: function () {
-    // here's goes some logic
-    // e.g. save content before closing the modal
-    return true; // close the modal
+    return true;
   },
 });
 
@@ -97,8 +106,13 @@ function closeModal() {
 }
 
 function showPopup(event) {
-  if (event.currentIndex === 7) {
-    modal.setContent(`Better Luck next time !`);
-  }
+  modal.setContent(props[0].items[event.currentIndex].labelText);
   modal.open();
+}
+
+async function getSelecton() {
+  const response = await fetch("/hello");
+  const data = await response.json();
+  console.log(data);
+  return data;
 }

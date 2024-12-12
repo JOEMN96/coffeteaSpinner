@@ -107,3 +107,13 @@ nav {
   display: grid;
   place-items: center;
 }
+
+@media (max-width: 540px) {
+  .tingle-modal {
+    top: 50%;
+    transform: translateY(-50%);
+    display: block;
+    padding-top: 60px;
+    width: 100%;
+  }
+}
