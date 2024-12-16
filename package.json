@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@netlify/functions": "^2.8.2"
+    "@netlify/functions": "^2.8.2",
+    "airtable": "^0.12.2",
+    "i": "^0.3.7",
+    "netlify-cli": "^17.38.0",
+    "npm": "^10.9.2"
   }
 }

@@ -22,13 +22,13 @@ export const props = [
     lineWidth: 1,
     lineColor: "#000",
     // image: "./img/our-image.svg",
-    overlayImage: "./img/our-overlay.svg",
+    overlayImage: "./img/our-overlay-2.svg",
     items: [
       {
         labelText: "English Breakfast ",
         image: "./spinnerImages/english-breakfast.svg",
-        imageScale: 1.3,
-        imageRotation: -90,
+        imageScale: 1.2,
+        imageRotation: -95,
         imageRadius: 0.6,
       },
       {
@@ -42,7 +42,7 @@ export const props = [
         labelText: "250 gms cookies",
         image: "./spinnerImages/cookies.svg",
         imageScale: 1.3,
-        imageRotation: -90,
+        imageRotation: -80,
         imageRadius: 0.6,
       },
       {
@@ -86,7 +86,7 @@ export const props = [
         labelText: "Better luck Next time",
         image: "./spinnerImages/bl.svg",
         imageScale: 1.3,
-        imageRotation: -90,
+        imageRotation: -83,
         imageRadius: 0.6,
       },
       {

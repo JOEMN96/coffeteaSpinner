@@ -11,7 +11,11 @@
   "workspace": {
     "packageJson": {
       "dependencies": [
-        "npm:@netlify/functions@^2.8.2"
+        "npm:@netlify/functions@^2.8.2",
+        "npm:airtable@^0.12.2",
+        "npm:i@^0.3.7",
+        "npm:netlify-cli@^17.38.0",
+        "npm:npm@^10.9.2"
       ]
     }
   }

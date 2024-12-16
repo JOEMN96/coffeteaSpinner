@@ -36,18 +36,65 @@ window.onload = async () => {
   const btnSpin = document.querySelector("button");
   let modifier = 0;
 
-  window.addEventListener("click", async (e) => {
+  let spinBtn = document.querySelector(".spin");
+
+  spinBtn.addEventListener("click", async (e) => {
     // Listen for click event on spin button:
-    try {
-      let res = await getSelecton();
-      let json = res.json();
-      console.log(json);
-    } catch (error) {}
-    if (e.target === btnSpin) {
-      const { duration, winningItemRotaion } = calcSpinToValues();
-      wheel.spinToItem(8, duration, true, 2, 1);
-    }
+    // try {
+    //   let res = await getSelection();
+    //   let json = res.json();
+    //   console.log(json);
+    // } catch (error) {}
+    // if (e.target === btnSpin) {
+    //   const { duration, winningItemRotaion } = calcSpinToValues();
+    //   wheel.spinToItem(8, duration, true, 2, 1);
+    // }
+
+    createUserDetailsModal();
   });
+
+  function createUserDetailsModal() {
+    userDetailmodal.open();
+
+    let form = document.querySelector(".userForm");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await getSelection("joe", "arulj@gmail.com", "9087531393");
+    });
+  }
+
+  const userDetailmodal = new tingle.modal({
+    footer: true,
+    stickyFooter: false,
+    closeMethods: ["overlay", "button", "escape"],
+    closeLabel: "Close",
+    cssClass: ["userDetailmodal"],
+    onOpen: function () {},
+    onClose: function () {},
+    beforeClose: function () {
+      return true;
+    },
+  });
+
+  userDetailmodal.setContent(`<div class="box">
+    <form class="userForm">
+      <span class="text-center">Contact Details</span>
+    <div class="input-container">
+      <input type="text" required=''/>
+      <label>Name</label>		
+    </div>
+    <div class="input-container">		
+      <input type="mail" required=""/>
+      <label>Email</label>
+    </div>
+    <div class="input-container">		
+      <input type="number" required=""/>
+      <label>Phone Number</label>
+    </div>
+      <button type="submit" class="btn">Submit & Spin</button>
+  </form>	
+  </div>`);
 
   wheel.onRest = function (event) {
     showPopup(event);
@@ -74,8 +121,20 @@ window.onload = async () => {
     return i;
   }
 
-  async function getSelecton() {
-    const response = await fetch("/.netlify/functions/hello");
+  async function getSelection(name, email, phone) {
+    const userData = JSON.stringify({
+      name,
+      email,
+      phone,
+    });
+    const response = await fetch("/.netlify/functions/hello", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: userData,
+    });
     const data = await response.json();
     console.log(data);
     return data;
@@ -87,7 +146,7 @@ const modal = new tingle.modal({
   stickyFooter: false,
   closeMethods: ["overlay", "button", "escape"],
   closeLabel: "Close",
-  cssClass: ["custom-class-1", "custom-class-2"],
+  cssClass: ["resultsModal"],
   onOpen: function () {},
   onClose: function () {},
   beforeClose: function () {
@@ -108,11 +167,4 @@ function closeModal() {
 function showPopup(event) {
   modal.setContent(props[0].items[event.currentIndex].labelText);
   modal.open();
-}
-
-async function getSelecton() {
-  const response = await fetch("/hello");
-  const data = await response.json();
-  console.log(data);
-  return data;
 }

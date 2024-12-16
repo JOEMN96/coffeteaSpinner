@@ -1,12 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Pragati+Narrow&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&amp;display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i&subset=greek-ext");
+
 * {
   margin: 0;
   padding: 0;
-  font-family: "Lucida Grande", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-size: 15px;
   -webkit-tap-highlight-color: transparent;
   user-select: none; /* Prevent selecting ui text when dragging */
@@ -78,12 +75,11 @@ label {
   display: block;
   border: 0px;
   font-weight: 700;
-  box-shadow: 0px 0px 14px -7px #f09819;
-  background-image: linear-gradient(45deg, #ff512f 0%, #f09819 51%, #ff512f 100%);
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  background: #944c40;
 }
 
 .spin:hover {
@@ -116,4 +112,101 @@ nav {
     padding-top: 60px;
     width: 100%;
   }
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.userDetailmodal .tingle-modal-box__content,
+.userDetailmodal .tingle-modal-box__footer,
+.userDetailmodal .tingle-modal-box {
+  background: transparent;
+}
+
+.userDetailmodal .tingle-modal-box__content {
+  position: relative;
+}
+
+@media (max-width: 540px) {
+  .tingle-modal {
+    top: 0%;
+    transform: none;
+    overflow-y: visible;
+  }
+
+  .userDetailmodal .tingle-modal-box,
+  .userDetailmodal .tingle-modal-box__content {
+    height: 100%;
+  }
+}
+
+/* Css for userdetail modal */
+
+.text-center {
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 23px;
+  margin: -50px 0 80px 0;
+  display: block;
+  text-align: center;
+}
+.box {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.89);
+  border-radius: 3px;
+  padding: 70px 100px;
+}
+.input-container {
+  position: relative;
+  margin-bottom: 25px;
+}
+.input-container label {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  font-size: 16px;
+  color: #fff;
+  pointer-event: none;
+  transition: all 0.5s ease-in-out;
+}
+.input-container input {
+  border: 0;
+  border-bottom: 1px solid #555;
+  background: transparent;
+  width: 100%;
+  padding: 8px 0 5px 0;
+  font-size: 16px;
+  color: #fff;
+}
+.input-container input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #e74c3c;
+}
+.btn {
+  color: #fff;
+  background-color: #e74c3c;
+  outline: none;
+  border: 0;
+  color: #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 50px;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.input-container input:focus ~ label,
+.input-container input:valid ~ label {
+  top: -12px;
+  font-size: 12px;
 }
