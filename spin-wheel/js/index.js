@@ -39,17 +39,6 @@ window.onload = async () => {
   let spinBtn = document.querySelector(".spin");
 
   spinBtn.addEventListener("click", async (e) => {
-    // Listen for click event on spin button:
-    // try {
-    //   let res = await getSelection();
-    //   let json = res.json();
-    //   console.log(json);
-    // } catch (error) {}
-    // if (e.target === btnSpin) {
-    //   const { duration, winningItemRotaion } = calcSpinToValues();
-    //   wheel.spinToItem(8, duration, true, 2, 1);
-    // }
-
     createUserDetailsModal();
   });
 
@@ -60,7 +49,32 @@ window.onload = async () => {
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      await getSelection("joe", "arulj@gmail.com", "9087531393");
+      var formData = new FormData(form);
+
+      let data = {
+        name: formData.get("name"),
+        email: formData.get("email"),
+        phone: formData.get("phone"),
+      };
+      const { duration, winningItemRotaion } = calcSpinToValues();
+
+      try {
+        let res = await getSelection(data.name, data.email, data.phone);
+
+        let index = res.prize.index;
+        let duplicate = res.duplicate;
+
+        userDetailmodal.close();
+        if (duplicate) {
+          showPopup(null, duplicate);
+          return;
+        } else {
+          wheel.spinToItem(index, duration, true, 2, 1);
+        }
+      } catch (error) {
+        userDetailmodal.close();
+        wheel.spinToItem(8, duration, true, 2, 1);
+      }
     });
   }
 
@@ -81,15 +95,15 @@ window.onload = async () => {
     <form class="userForm">
       <span class="text-center">Contact Details</span>
     <div class="input-container">
-      <input type="text" required=''/>
+      <input type="text" id="name" name="name" required=''/>
       <label>Name</label>		
     </div>
     <div class="input-container">		
-      <input type="mail" required=""/>
+      <input type="mail" id="email" name="email" required=""/>
       <label>Email</label>
     </div>
     <div class="input-container">		
-      <input type="number" required=""/>
+      <input type="number" id="phone" name="phone" required=""/>
       <label>Phone Number</label>
     </div>
       <button type="submit" class="btn">Submit & Spin</button>
@@ -127,17 +141,32 @@ window.onload = async () => {
       email,
       phone,
     });
-    const response = await fetch("/.netlify/functions/hello", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: userData,
-    });
-    const data = await response.json();
-    console.log(data);
-    return data;
+    try {
+      let res = await fetch("/.netlify/functions/api", {
+        method: "POST",
+        body: userData,
+      });
+      let data = await res.json();
+
+      if (res.status === 400) {
+        return {
+          ...data,
+          duplicate: true,
+        };
+      } else if (res.status === 500) {
+        return {
+          prize: { index: 8 },
+          duplicate: false,
+        };
+      } else {
+        return {
+          ...data,
+          duplicate: false,
+        };
+      }
+    } catch (error) {
+      return 8;
+    }
   }
 };
 
@@ -164,7 +193,20 @@ function closeModal() {
   modal.close();
 }
 
-function showPopup(event) {
-  modal.setContent(props[0].items[event.currentIndex].labelText);
+function showPopup(event, duplicate = false) {
+  if (duplicate) {
+    modal.setContent(
+      `<h1 class="winnerHeading">
+        Email or Phone no already exits ! Please use different contact details to spin again !
+      </h1>`
+    );
+  } else {
+    modal.setContent(
+      `<h1 class="winnerHeading ${event.currentIndex === 8 ? "red" : "green"}">You Won - ${
+        props[0].items[event.currentIndex].labelText
+      }</h1>`
+    );
+  }
+
   modal.open();
 }
