@@ -1,7 +1,5 @@
 const { MongoClient } = require("mongodb");
-const mongoClient = new MongoClient(
-  "mongodb+srv://spinneradmin:spinneradmin@spinner.tz3q8.mongodb.net/?retryWrites=true&w=majority&appName=Spinner"
-);
+const mongoClient = new MongoClient(process.env.MONGODB_URI);
 const clientPromise = mongoClient.connect();
 
 const handler = async (event) => {
