@@ -47,35 +47,39 @@ window.onload = async () => {
 
     let form = document.querySelector(".userForm");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      var formData = new FormData(form);
+    form.addEventListener(
+      "submit",
+      async (e) => {
+        e.preventDefault();
+        var formData = new FormData(form);
 
-      let data = {
-        name: formData.get("name"),
-        email: formData.get("email"),
-        phone: formData.get("phone"),
-      };
-      const { duration, winningItemRotaion } = calcSpinToValues();
+        let data = {
+          name: formData.get("name"),
+          email: formData.get("email"),
+          phone: formData.get("phone"),
+        };
+        const { duration, winningItemRotaion } = calcSpinToValues();
 
-      try {
-        let res = await getSelection(data.name, data.email, data.phone);
+        try {
+          let res = await getSelection(data.name, data.email, data.phone);
 
-        let index = res.prize.index;
-        let duplicate = res.duplicate;
+          let index = res.prize.index;
+          let duplicate = res.duplicate;
 
-        userDetailmodal.close();
-        if (duplicate) {
-          showPopup(null, duplicate);
-          return;
-        } else {
-          wheel.spinToItem(index, duration, true, 2, 1);
+          userDetailmodal.close();
+          if (duplicate) {
+            showPopup(null, duplicate);
+            return;
+          } else {
+            wheel.spinToItem(index, duration, true, 2, 1);
+          }
+        } catch (error) {
+          userDetailmodal.close();
+          wheel.spinToItem(8, duration, true, 2, 1);
         }
-      } catch (error) {
-        userDetailmodal.close();
-        wheel.spinToItem(8, duration, true, 2, 1);
-      }
-    });
+      },
+      { once: true }
+    );
   }
 
   const userDetailmodal = new tingle.modal({
