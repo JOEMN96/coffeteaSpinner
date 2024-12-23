@@ -3,6 +3,22 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI);
 const clientPromise = mongoClient.connect();
 
 const handler = async (event) => {
+  if (
+    event.headers.origin !== "https://promotion.coffetea.in" ||
+    event.headers.origin !== "https://promotion.coffetea.in" ||
+    event.headers.origin !== "https://comforting-valkyrie-76a612.netlify.app"
+  ) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        message: "Invalid Request",
+        prize: "Better luck Next time",
+        index: 8,
+        origin: event.headers.origin,
+      }),
+    };
+  }
+
   let { name, email, phone } = JSON.parse(event.body);
 
   try {
