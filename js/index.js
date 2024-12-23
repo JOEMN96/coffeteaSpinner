@@ -47,6 +47,8 @@ window.onload = async () => {
 
     let form = document.querySelector(".userForm");
 
+    let spinner = document.querySelector(".spinner");
+
     form.addEventListener(
       "submit",
       async (e) => {
@@ -61,11 +63,13 @@ window.onload = async () => {
         const { duration, winningItemRotaion } = calcSpinToValues();
 
         try {
+          spinner.style.display = "inline-block";
           let res = await getSelection(data.name, data.email, data.phone);
 
           let index = res.prize.index;
           let duplicate = res.duplicate;
 
+          spinner.style.display = "none";
           userDetailmodal.close();
           if (duplicate) {
             showPopup(null, duplicate);
@@ -110,7 +114,7 @@ window.onload = async () => {
       <input type="number" id="phone" name="phone" required=""/>
       <label>Phone Number</label>
     </div>
-      <button type="submit" class="btn">Submit & Spin</button>
+      <button type="submit" class="btn">Submit & Spin <svg width="20" class="spinner" style="display:none;vertical-align: bottom;margin-left: 10px;" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_P7sC{transform-origin:center;animation:spinner_svv2 .75s infinite linear}@keyframes spinner_svv2{100%{transform:rotate(360deg)}}</style><path d="M10.14,1.16a11,11,0,0,0-9,8.92A1.59,1.59,0,0,0,2.46,12,1.52,1.52,0,0,0,4.11,10.7a8,8,0,0,1,6.66-6.61A1.42,1.42,0,0,0,12,2.69h0A1.57,1.57,0,0,0,10.14,1.16Z" class="spinner_P7sC"/></svg></button>
   </form>	
   </div>`);
 
