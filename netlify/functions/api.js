@@ -3,17 +3,15 @@ const mongoClient = new MongoClient(process.env.MONGODB_URI);
 const clientPromise = mongoClient.connect();
 
 const handler = async (event) => {
-  if (
-    event.headers.origin !== "https://promotion.coffetea.in" ||
-    event.headers.origin !== "https://comforting-valkyrie-76a612.netlify.app"
-  ) {
+  if (!(event.headers.origin === "https://promotion.coffetea.in")) {
     return {
       statusCode: 403,
       body: JSON.stringify({
         message: "Invalid Request",
-        prize: "Better luck Next time",
-        index: 8,
-        origin: event.headers.origin,
+        prize: {
+          index: 8,
+        },
+        duplicate: false,
       }),
     };
   }
@@ -48,7 +46,13 @@ const handler = async (event) => {
     } else {
       return {
         statusCode: 400,
-        body: JSON.stringify({ message: "User already exists", prize: "Better luck Next time", index: 8 }),
+        body: JSON.stringify({
+          message: "User already exists",
+          prize: {
+            prize: "Better luck Next time",
+            index: 8,
+          },
+        }),
       };
     }
   } catch (error) {
