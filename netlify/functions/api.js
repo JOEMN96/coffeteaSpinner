@@ -79,52 +79,52 @@ const prizes = [
   {
     labelText: "English Breakfast",
     image: "./spinnerImages/english-breakfast.svg",
-    date: "2024-12-19T00:00:00+00:00",
+    date: "2024-12-24T00:00:00+00:00",
   },
   {
     labelText: "Choice of Pasta",
     image: "./spinnerImages/ChoiceofPasta.svg",
-    date: "2024-12-20T00:00:00+00:00",
+    date: "2024-12-25T00:00:00+00:00",
   },
   {
     labelText: "250 gms cookies",
     image: "./spinnerImages/cookies.svg",
-    date: "2024-12-21T00:00:00+00:00",
+    date: "2024-12-26T00:00:00+00:00",
   },
   {
     labelText: "500 gms cake ",
     image: "./spinnerImages/cake.svg",
-    date: "2024-12-22T00:00:00+00:00",
+    date: "2024-12-27T00:00:00+00:00",
   },
   {
     labelText: "Movie Ticket",
     image: "./spinnerImages/ticket.svg",
-    date: "2024-12-23T00:00:00+00:00",
+    date: "2024-12-28T00:00:00+00:00",
   },
   {
     labelText: "Boat Airdopes",
     image: "./spinnerImages/boat.svg",
-    date: "2024-12-25T00:00:00+00:00",
+    date: "2024-12-29T00:00:00+00:00",
   },
   {
     labelText: "Rs 500 Voucher",
     image: "./spinnerImages/voucher.svg",
-    date: "2024-12-24T00:00:00+00:00",
+    date: "2024-12-30T00:00:00+00:00",
   },
   {
     labelText: "Creamy Cappuccino",
     image: "./spinnerImages/cappuccino.svg",
-    date: "2024-12-26T00:00:00+00:00",
+    date: "2024-12-31T00:00:00+00:00",
   },
   {
     labelText: "Better luck Next time",
     image: "./spinnerImages/bl.svg",
-    date: "2024-11-27T00:00:00+00:00",
+    date: "2024-11-01T00:00:00+00:00",
   },
   {
     labelText: "Creamy Cold Coffee",
     image: "./spinnerImages/cold-coffee.svg",
-    date: "2024-12-27T00:00:00+00:00",
+    date: "2024-12-02T00:00:00+00:00",
   },
 ];
 

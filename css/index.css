@@ -224,3 +224,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .winnerHeading.green {
   color: green;
 }
+
+nav img {
+  margin-top: 50px;
+}
