@@ -206,9 +206,9 @@ function showPopup(event, duplicate = false) {
     );
   } else {
     modal.setContent(
-      `<h1 class="winnerHeading ${event.currentIndex === 8 ? "red" : "green"}">You Won - ${
-        props[0].items[event.currentIndex].labelText
-      }</h1>`
+      `<h1 class="winnerHeading ${event.currentIndex === 8 ? "red" : "green"}">
+        ${event.currentIndex === 8 ? "" : "You Won -"} ${props[0].items[event.currentIndex].labelText}
+      </h1>`
     );
   }
 

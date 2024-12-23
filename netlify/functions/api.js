@@ -5,11 +5,10 @@ const clientPromise = mongoClient.connect();
 const handler = async (event) => {
   if (
     event.headers.origin !== "https://promotion.coffetea.in" ||
-    event.headers.origin !== "https://promotion.coffetea.in" ||
     event.headers.origin !== "https://comforting-valkyrie-76a612.netlify.app"
   ) {
     return {
-      statusCode: 400,
+      statusCode: 403,
       body: JSON.stringify({
         message: "Invalid Request",
         prize: "Better luck Next time",
